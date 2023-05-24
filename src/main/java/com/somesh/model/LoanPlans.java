@@ -13,13 +13,14 @@ public class LoanPlans implements Serializable{
     private int loanTypeId;
     private int principalAmount;
     private int interestRate;
-    @Override
-    public String toString() {
-        return "loanPlans [planId=" + planId + ", planName=" + planName + ", loanTypeId=" + loanTypeId
-                + ", principalAmount=" + principalAmount + ", interestRate=" + interestRate + ", tenure=" + tenure
-                + ", emi=" + emi + ", totalAmount=" + totalAmount + ", interestAmount=" + interestAmount
-                + ", planValidity=" + planValidity + ", planAddedOn=" + planAddedOn + "]";
-    }
+    private int tenure;
+    private int emi;
+    private int totalAmount;
+    private int interestAmount;
+    private int planValidity;
+    private int planAddedOn;
+
+    
     public int getPlanId() {
         return planId;
     }
@@ -86,10 +87,13 @@ public class LoanPlans implements Serializable{
     public void setPlanAddedOn(int planAddedOn) {
         this.planAddedOn = planAddedOn;
     }
-    private int tenure;
-    private int emi;
-    private int totalAmount;
-    private int interestAmount;
-    private int planValidity;
-    private int planAddedOn;
+
+
+    @Override
+    public String toString() {
+        return "loanPlans [planId=" + planId + ", planName=" + planName + ", loanTypeId=" + loanTypeId
+                + ", principalAmount=" + principalAmount + ", interestRate=" + interestRate + ", tenure=" + tenure
+                + ", emi=" + emi + ", totalAmount=" + totalAmount + ", interestAmount=" + interestAmount
+                + ", planValidity=" + planValidity + ", planAddedOn=" + planAddedOn + "]";
+    }
 }

@@ -32,6 +32,18 @@ public class LoanPlansDaoImpl implements LoanPlansDao{
     @Override
     public List<LoanPlans> getAllLoanPlans() {
         // TODO Auto-generated method stub
+        return jdbcTemplate.query("Select * from loanplans", new RowMapper<LoanPlans>() {
+
+            @Override
+            public LoanPlans mapRow(ResultSet rs, int rowNum) throws SQLException {
+                LoanPlans loanPlan = new LoanPlans();
+                loanPlan.setId(rs.getInt("id"));
+                loanPlan.setPlanName(rs.getString("planName"));
+                loanPlan.setPlanDescription(rs.getString("planDescription"));
+                loanPlan.setPlanInterest(rs.getFloat("planInterest"));
+                loanPlan.setPlanTenure(rs.getInt("planTenure"));
+                
+                
         
     }
 
