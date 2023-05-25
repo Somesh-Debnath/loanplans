@@ -11,6 +11,7 @@ public class BaseInterestRates implements Serializable{
 
 private int id;
  private String loanType;
+ private float baseInterestRate;
  public String getLoanType() {
     return loanType;
 }
@@ -28,7 +29,7 @@ public void setBaseInterestRate(float baseInterestRate) {
     this.baseInterestRate = baseInterestRate;
 }
 
-private float baseInterestRate;
+
 public int getId() {
     return id;
 }

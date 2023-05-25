@@ -37,38 +37,71 @@ public class LoanPlansDaoImpl implements LoanPlansDao{
             @Override
             public LoanPlans mapRow(ResultSet rs, int rowNum) throws SQLException {
                 LoanPlans loanPlan = new LoanPlans();
-                loanPlan.setId(rs.getInt("id"));
+                loanPlan.setPlanId(rs.getInt("planId"));
                 loanPlan.setPlanName(rs.getString("planName"));
-                loanPlan.setPlanDescription(rs.getString("planDescription"));
-                loanPlan.setPlanInterest(rs.getFloat("planInterest"));
-                loanPlan.setPlanTenure(rs.getInt("planTenure"));
-                
-                
+                loanPlan.setLoanTypeId(rs.getInt("loanTypeId"));
+                loanPlan.setPrincipalAmount(rs.getInt("principalAmount"));
+                loanPlan.setInterestRate(rs.getInt("interestRate"));
+                loanPlan.setTenure(rs.getInt("tenure"));
+                loanPlan.setEmi(rs.getInt("emi"));
+                loanPlan.setTotalAmount(rs.getInt("totalAmount"));
+                loanPlan.setInterestAmount(rs.getInt("interestAmount"));
+                loanPlan.setPlanValidity(rs.getInt("planValidity"));
+                loanPlan.setPlanAddedOn(rs.getInt("planAddedOn"));
+                return loanPlan;
+
+            }
+        });
         
     }
+
 
     @Override
     public LoanPlans getLoanPlanById(int id) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLoanPlanById'");
-    }
+        String sql = "Select * from loanplans where planId=" + id;
+        return jdbcTemplate.query(sql, new ResultSetExtractor<LoanPlans>() {
 
-    @Override
-    public void addLoanPlan(LoanPlans loanPlan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addLoanPlan'");
+            @Override
+            public LoanPlans extractData(ResultSet rs) throws SQLException, DataAccessException {
+                if (rs.next()) {
+                    LoanPlans loanPlan = new LoanPlans();
+                    loanPlan.setPlanId(rs.getInt("planId"));
+                    loanPlan.setPlanName(rs.getString("planName"));
+                    loanPlan.setLoanTypeId(rs.getInt("loanTypeId"));
+                    loanPlan.setPrincipalAmount(rs.getInt("principalAmount"));
+                    loanPlan.setInterestRate(rs.getInt("interestRate"));
+                    loanPlan.setTenure(rs.getInt("tenure"));
+                    loanPlan.setEmi(rs.getInt("emi"));
+                    loanPlan.setTotalAmount(rs.getInt("totalAmount"));
+                    loanPlan.setInterestAmount(rs.getInt("interestAmount"));
+                    loanPlan.setPlanValidity(rs.getInt("planValidity"));
+                    loanPlan.setPlanAddedOn(rs.getInt("planAddedOn"));
+                    return loanPlan;
+                }
+                return null;
+            }
+        });
     }
 
     @Override
     public void saveOrUpdate(LoanPlans loanPlan) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveOrUpdate'");
+        if (loanPlan.getPlanId() > 0) {
+            // update
+            String sql = "UPDATE loanplans SET planName=?, loanTypeId=?, principalAmount=?, interestRate=?, tenure=?, emi=?, totalAmount=?, interestAmount=?, planValidity=?, planAddedOn=? WHERE planId=?";
+            jdbcTemplate.update(sql, loanPlan.getPlanName(), loanPlan.getLoanTypeId(), loanPlan.getPrincipalAmount(), loanPlan.getInterestRate(), loanPlan.getTenure(), loanPlan.getEmi(), loanPlan.getTotalAmount(), loanPlan.getInterestAmount(), loanPlan.getPlanValidity(), loanPlan.getPlanAddedOn(), loanPlan.getPlanId());
+        } else {
+            // insert
+            String sql = "INSERT INTO loanplans (planName, loanTypeId, principalAmount, interestRate, tenure, emi, totalAmount, interestAmount, planValidity, planAddedOn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, loanPlan.getPlanName(), loanPlan.getLoanTypeId(), loanPlan.getPrincipalAmount(), loanPlan.getInterestRate(), loanPlan.getTenure(), loanPlan.getEmi(), loanPlan.getTotalAmount(), loanPlan.getInterestAmount(), loanPlan.getPlanValidity(), loanPlan.getPlanAddedOn());
+        }
     }
 
     @Override
     public void deleteLoanPlan(int id) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteLoanPlan'");
+        String sql = "DELETE FROM loanplans WHERE planId=?";
+        jdbcTemplate.update(sql, id);
     }
-    
 }

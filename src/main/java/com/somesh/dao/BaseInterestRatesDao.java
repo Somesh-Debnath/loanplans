@@ -6,8 +6,7 @@ import com.somesh.model.BaseInterestRates;
 
 public interface BaseInterestRatesDao {
     public List<BaseInterestRates> getAllBaseInterestRates();
-    public BaseInterestRates getBaseInterestRateById(int id);
-    public void addBaseInterestRate(BaseInterestRates baseInterestRate);
-    public void saveOrUpdate(BaseInterestRates baseInterestRate);
-    public void deleteBaseInterestRate(int id);
+    // public BaseInterestRates getBaseInterestRateById(int id);
+    // public void saveOrUpdate(BaseInterestRates baseInterestRate);
+    // public void deleteBaseInterestRate(int id);
 }
